@@ -10,7 +10,7 @@ const styles = {
 };
 let benefitsArray = [];
 function AdditionalBenefits(props) {
-  const { classes, handleAddBenefits } = props;
+  const {  handleAddBenefits } = props;
   const [state, setState] = useState({});
   const [values, setValues] = useState({
     benefitValues: [
@@ -49,7 +49,7 @@ function AdditionalBenefits(props) {
     new_benefit.id = newItems.id;
 
     benefitsArray.push(new_benefit);
-    //handleAddBenefits(benefitsArray);
+    handleAddBenefits(benefitsArray);
     console.log(new_benefit);
   };
   const handleRemoveButtonClick = stateName => {
