@@ -11,80 +11,82 @@ import GridContainer from "components/Grid/GridContainer";
 import Button from "components/CustomButtons/Button";
 import userProfileStyles from "assets/jss/material-dashboard-pro-react/views/userProfileStyles.jsx";
 const styles = {
-    ...registerPageStyle,
-    ...userProfileStyles
+  ...registerPageStyle,
+  ...userProfileStyles
 };
 function DynamicComponent(props) {
-    const {
-        classes,
-        state,
-        handleToggle,
-        toggleStateName,
-        stateName,
-        errorState,
-        toggleLabel,
-        textLabel,
-        textId,
-        change,
-        handleButtonClick,
-        handleRemoveButton,
-        buttonState
-    } = props;
-    return (
-        <GridContainer justify={"center"}>
-            <GridItem xs={12} sm={12} md={12}>
-                <FormControlLabel
-                    classes={{
-                        root: classes.checkboxLabelControl,
-                        label: classes.checkboxLabel
-                    }}
-                    control={
-                        <Checkbox
-                            tabIndex={-1}
-                            onClick={() => handleToggle(`${toggleStateName}`)}
-                            checkedIcon={<Check className={classes.checkedIcon} />}
-                            icon={<Check className={classes.uncheckedIcon} />}
-                            classes={{
-                                checked: classes.checked,
-                                root: classes.checkRoot
-                            }}
-                        />
-                    }
-                    label={<span>{toggleLabel}</span>}
+  const {
+    classes,
+    state,
+    handleToggle,
+    toggleStateName,
+    stateName,
+    errorState,
+    toggleLabel,
+    textLabel,
+    textId,
+    change,
+    handleButtonClick,
+    handleRemoveButton,
+    buttonState,
+      value
+  } = props;
+  return (
+    <GridContainer justify={"center"}>
+      <GridItem xs={12} sm={12} md={12}>
+        <FormControlLabel
+          classes={{
+            root: classes.checkboxLabelControl,
+            label: classes.checkboxLabel
+          }}
+          control={
+            <Checkbox
+              tabIndex={-1}
+              onClick={() => handleToggle(`${toggleStateName}`)}
+              checkedIcon={<Check className={classes.checkedIcon} />}
+              icon={<Check className={classes.uncheckedIcon} />}
+              classes={{
+                checked: classes.checked,
+                root: classes.checkRoot
+              }}
+            />
+          }
+          label={<span>{toggleLabel}</span>}
+        />
+      </GridItem>
+      <GridItem xs={12} sm={12} md={12}>
+        {state ? (
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={8}>
+              <FormControl fullWidth className={classes.selectFormControl}>
+                <TextField
+                  id={`${textId}`}
+                  label={`${textLabel}`}
+                  margin="normal"
+                  value={value}
+                  variant="outlined"
+                  error={`${errorState}` === "error"}
+                  onChange={event => change(event, `${stateName}`, "number")}
                 />
+              </FormControl>
             </GridItem>
-            <GridItem xs={12} sm={12} md={12}>
-                {state ? (
-                    <GridContainer>
-                        <GridItem xs={12} sm={12} md={8}>
-                            <FormControl fullWidth className={classes.selectFormControl}>
-                                <TextField
-                                    id={`${textId}`}
-                                    label={`${textLabel}`}
-                                    margin="normal"
-                                    variant="outlined"
-                                    error={`${errorState}` === "error"}
-                                    onChange={event => change(event, `${stateName}`, "number")}
-                                />
-                            </FormControl>
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={4}>
-                            <Button
-                                className={classes.updateProfileButton}
-                                color={buttonState ? "twitter" : "warning"}
-                                onClick={
-                                    buttonState
-                                        ? () => handleButtonClick(stateName)
-                                        : () => handleRemoveButton(stateName)
-                                }
-                            >
-                                {buttonState ? "ADD" : "Remove"}
-                            </Button>
-                        </GridItem>
-                    </GridContainer>
-                ) : null}
+            <GridItem xs={12} sm={12} md={4}>
+              <Button
+                className={classes.updateProfileButton}
+                color={buttonState ? "twitter" : "warning"}
+                onClick={
+                  buttonState
+                    ? () => handleButtonClick(stateName)
+                    : () => handleRemoveButton(stateName)
+                }
+              >
+                {buttonState ? "ADD" : "Remove"}
+              </Button>
             </GridItem>
-        </GridContainer>
-    );
+          </GridContainer>
+        ) : null}
+      </GridItem>
+    </GridContainer>
+  );
 }
 export default withStyles(styles)(DynamicComponent);
